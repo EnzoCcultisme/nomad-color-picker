@@ -12,8 +12,8 @@ Work Louder Nomad v1
 
 
 ### Firmware & Software
-Firmware: firmware_v0.9.0-sdk.1_merged.bin
-Input App: input-Setup-0.15.0-sdk.1.exe
+firmware_v0.9.0-sdk.1_merged.bin
+input 0.15.0-sdk.1
 
 
 ### Python
