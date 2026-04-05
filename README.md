@@ -32,3 +32,5 @@ pip install pyautogui Pillow
 - BTN 2 (top-right) / Capture color under cursor
 - OPERATOR 1 (left knob) / Adjust Saturation (0–200, step 5)
 - OPERATOR 2 (right knob) / Adjust Brightness/Luminosity (10–200, step 5)
+
+! In this widget, the fp input is an on/off toggle be aware to not hold fp when using the color picker
