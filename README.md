@@ -1,5 +1,7 @@
 # nomad-color-picker
-A color picker widget for the Work Louder Nomad v1. Capture any color from your screen, display it on the keyboard's IPS screen, copy it , and modify it directly with the knobs.
+** A color picker widget for the Work Louder Nomad v1. Capture any color from your screen, display it on the keyboard's IPS screen, copy it , and modify it directly with the knobs.**
+
+be aware in the vast majority of cases the color profile of your nomad don't match with your screen, nevertheless if you pick a color on your screen, copy the hex and use it on a design, the color display (on your computer screen) will be the exactly the same as picked
 
 ## Requirements
 
@@ -32,5 +34,4 @@ pip install pyautogui Pillow
 - BTN 2 (top-right) / Capture color under cursor
 - OPERATOR 1 (left knob) / Adjust Saturation (0–200, step 5)
 - OPERATOR 2 (right knob) / Adjust Brightness/Luminosity (10–200, step 5)
-
-! In this widget, the fp input is an on/off toggle be aware to not hold fp when using the color picker
+** In this widget, the fp input is an on/off toggle be aware to not hold fp when using the color picker**
