@@ -102,12 +102,13 @@ def on_color_received(ctx,params):
             show_status("err")
     wlsdk.rpc.send_response(ctx,None)
 
-wlsdk.rpc.register("color.data",on_color_received)
+
 
 def start():
     wlsdk.ui.set_stay_on_screen(True)
     wlsdk.ui.set_grab_input(True)
     build_ui()
+    wlsdk.rpc.register("color.data",on_color_received)
     refresh()
 
 def update():
@@ -146,12 +147,12 @@ def on_event(event_type,event_index,event_value):
         if event_value!=wlsdk.EVENT.BUTTON_DOWN:return
         if event_index<1 or event_index>4:return
         reset_anim();refresh()
-        if event_index==2:
+        if event_index== 2:
             show_status("-")
             wlsdk.rpc.send_notify("color.capture","")
-        elif event_index==1:
-            show_status("·")
-            wlsdk.rpc.send_notify("color.copy","")
+        elif event_index== 1:
+            show_status("Â·")
+            wlsdk.rpc.send_notify("color.copy_hex","")
     elif event_type==wlsdk.EVENT.ENCODER:
         if not fp_held:return
         reset_anim()
