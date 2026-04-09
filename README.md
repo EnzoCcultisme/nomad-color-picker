@@ -1,5 +1,5 @@
 
-**WARNING** To run the script correctly, you need to edit worker.py by adding your absolute path to grabcolor.py on line 5. </ins>
+## **WARNING** To run the script correctly, you need to edit worker.py by adding your absolute path to grabcolor.py on line 5. </ins>
 
 # nomad-color-picker
 **A color picker widget for the Work Louder Nomad v1. Capture any color from your screen, display it on the keyboard's IPS screen, copy it , and modify it directly with the knobs.**
@@ -38,7 +38,7 @@ pip install pyautogui Pillow
 - OPERATOR 1 (left knob) / Adjust Saturation (0–200, step 5)
 - OPERATOR 2 (right knob) / Adjust Tint (10–200, step 5)
 
-**In this widget, the fp input is an on/off toggle be aware to not hold fp when using the color picker**
+**In this widget, the fp input is an on/off toggle be aware to not hold fp when using the color picker**  
 
 
 
