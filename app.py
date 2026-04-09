@@ -8,7 +8,7 @@ swatch=card=lbl_hex=lbl_rgb=lbl_status=dot=None
 status_timer=idle_timer=anim_t=0
 anim_active=fp_held=False
 cur_r=97
-cur_g=47 
+cur_g=47
 cur_b=139
 lum=sat=100
 
@@ -53,7 +53,7 @@ def build_ui():
     lbl_status.align(lv.ALIGN.TOP_MID,0,6)
     swatch=lv.obj(root)
     swatch.set_size(156,306)
-    swatch.set_style_bg_color(lv.color_make(97,47,139),0)
+    swatch.set_style_bg_color(lv.color_make(0,0,0),0)
     swatch.set_style_border_width(0,0)
     swatch.set_style_radius(20,0)
     swatch.set_style_pad_all(0,0)
@@ -61,6 +61,7 @@ def build_ui():
     swatch.align(lv.ALIGN.CENTER,0,0)
     dot=lv.obj(swatch)
     dot.set_size(10,10)
+    dot.set_style_bg_opa(0,0)
     dot.set_style_bg_color(lv.color_hex(0x000000),0)
     dot.set_style_radius(6,0)
     dot.set_style_border_width(0,0)
@@ -76,13 +77,13 @@ def build_ui():
     card.set_scrollbar_mode(lv.SCROLLBAR_MODE.OFF)
     card.align(lv.ALIGN.BOTTOM_MID,0,-7)
     lbl_hex=lv.label(card)
-    lbl_hex.set_text("#808080")
+    lbl_hex.set_text("#000000")
     lbl_hex.set_style_text_color(lv.color_hex(0xFFFFFF),0)
     lbl_hex.set_style_text_font(wlsdk.ui.FONT.MEDIUM,0)
     lbl_hex.set_style_text_align(lv.TEXT_ALIGN.CENTER,0)
     lbl_hex.align(lv.ALIGN.TOP_MID,0,2)
     lbl_rgb=lv.label(card)
-    lbl_rgb.set_text("128,128,128")
+    lbl_rgb.set_text("0,0,0")
     lbl_rgb.set_style_text_color(lv.color_hex(0xAAAAAA),0)
     lbl_rgb.set_style_text_font(wlsdk.ui.FONT.SMALL,0)
     lbl_rgb.set_style_text_align(lv.TEXT_ALIGN.CENTER,0)
@@ -91,24 +92,19 @@ def build_ui():
 def on_color_received(ctx,params):
     global cur_r,cur_g,cur_b,lum,sat
     if params:
-        if params.get("found"):
-            cur_r=params["r"];cur_g=params["g"];cur_b=params["b"]
-            lum=sat=100
-            gc.collect()
-            reset_anim()
-            refresh()
-            show_status("+")
-        else:
-            show_status("err")
+        cur_r=params["r"];cur_g=params["g"];cur_b=params["b"]
+        lum=sat=100
+        gc.collect()
+        reset_anim()
+        refresh()
     wlsdk.rpc.send_response(ctx,None)
 
-
+wlsdk.rpc.register("color.data",on_color_received)
 
 def start():
     wlsdk.ui.set_stay_on_screen(True)
     wlsdk.ui.set_grab_input(True)
     build_ui()
-    wlsdk.rpc.register("color.data",on_color_received)
     refresh()
 
 def update():
@@ -137,7 +133,7 @@ def update():
     swatch.set_style_bg_grad_dir(lv.GRAD_DIR.VER,0)
 
 def on_event(event_type,event_index,event_value):
-    global lum,sat,fp_held
+    global lum,sat,fp_held,cur_r,cur_g,cur_b
     if event_type==wlsdk.EVENT.BUTTON:
         if event_index==5:
             if event_value==wlsdk.EVENT.BUTTON_DOWN:
@@ -147,12 +143,13 @@ def on_event(event_type,event_index,event_value):
         if event_value!=wlsdk.EVENT.BUTTON_DOWN:return
         if event_index<1 or event_index>4:return
         reset_anim();refresh()
-        if event_index== 2:
-            show_status("-")
-            wlsdk.rpc.send_notify("color.capture","")
-        elif event_index== 1:
-            show_status("Â·")
-            wlsdk.rpc.send_notify("color.copy_hex","")
+        if event_index==2:
+            if fp_held:
+                wlsdk.rpc.send_notify("color.capture","")
+        elif event_index==1:
+              if fp_held:
+                r,g,b=get_rgb()
+                wlsdk.rpc.send_notify("color.copy_hex",str(r)+","+str(g)+","+str(b))
     elif event_type==wlsdk.EVENT.ENCODER:
         if not fp_held:return
         reset_anim()
@@ -161,12 +158,10 @@ def on_event(event_type,event_index,event_value):
             sat=sat+d
             if sat<0:sat=0
             if sat>200:sat=200
-            show_status("S:"+str(sat))
         elif event_index==1:
-            lum=lum+d
-            if lum<10:lum=10
-            if lum>200:lum=200
-            show_status("L:"+str(lum))
+            cur_r=clamp(cur_r+d*3)
+            cur_g=clamp(cur_g-d)
+            cur_b=clamp(cur_b-d*2)
         refresh()
 
 def end():
