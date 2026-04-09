@@ -1,6 +1,3 @@
-# grab_color.py
-# C:\Users\Ejacq\Documents\Work Louder SDK Widget\color-picker-sdk-widget\grab_color.py
-
 import pyautogui
 from PIL import ImageGrab
 
