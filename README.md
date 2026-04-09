@@ -40,4 +40,6 @@ pip install pyautogui Pillow
 
 **In this widget, the fp input is an on/off toggle be aware to not hold fp when using the color picker**
 
-## Special thanks to Cristian from Work Louder who helped me figure out the notify key matching issue
+
+
+# Special thanks to Cristian from Work Louder who helped me figure out the notify key matching issue
