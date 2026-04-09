@@ -1,7 +1,7 @@
 import js
 
-register_notify("wlsdk.capture")
-register_notify("wlsdk.copy_hex")
+register_notify("color.capture")
+register_notify("color.copy_hex")
 
 log("Color Picker is running")
 
@@ -23,7 +23,7 @@ def do_capture():
     data = {"hex": hex_val, "r": r, "g": g, "b": b,
             "h": h, "s": s, "l": l}
     log(f"Color captured : {hex_val}")
-    send_rpc("wlsdk.color_result", data)
+    send_rpc("color.data", data)
 
 def do_copy(hex_val):
     safe = hex_val.replace("#", "")
@@ -47,7 +47,7 @@ def rgb_to_hsl(r, g, b):
     return round(h*360), round(s*100), round(l*100)
 
 def handle_notify(method, params):
-    if method == "wlsdk.capture":
+    if method == "color.capture":
         do_capture()
-    elif method == "wlsdk.copy_hex":
+    elif method == "color.copy_hex":
         do_copy(params)
