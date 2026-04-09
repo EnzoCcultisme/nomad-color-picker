@@ -42,4 +42,4 @@ pip install pyautogui Pillow
 
 
 
-# Special thanks to Cristian from Work Louder who helped me figure out the notify key matching issue
+### Special thanks to Cristian from Work Louder who helped me figure out the notify key matching issue
