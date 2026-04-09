@@ -1,4 +1,4 @@
-## To run the script correctly, you need to edit worker.py by adding your absolute path to grabcolor.py on line 5. </ins>
+### To run the script correctly, you need to edit worker.py by adding your absolute path to grabcolor.py on line 5. </ins>
 
 # nomad-color-picker
 **A color picker widget for the Work Louder Nomad v1. Capture any color from your screen, display it on the keyboard's IPS screen, copy it , and modify it directly with the knobs.**
